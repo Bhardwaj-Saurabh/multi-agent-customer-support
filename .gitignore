@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+.env
+.env.*
+!.env.example
+
+# Claude Code session data
+.claude/
+
+# Test / runtime artifacts
+payload.json
+response.json
+
+project.md
