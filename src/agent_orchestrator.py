@@ -995,6 +995,9 @@ def create_guardrail() -> tuple[str, str]:
                 {'type': 'HATE', 'inputStrength': 'HIGH', 'outputStrength': 'HIGH'},
                 {'type': 'INSULTS', 'inputStrength': 'MEDIUM', 'outputStrength': 'MEDIUM'},
                 {'type': 'MISCONDUCT', 'inputStrength': 'MEDIUM', 'outputStrength': 'MEDIUM'},
+                # Blocks prompt-injection / jailbreak attempts; the API requires
+                # outputStrength NONE for PROMPT_ATTACK (it only applies to inputs)
+                {'type': 'PROMPT_ATTACK', 'inputStrength': 'HIGH', 'outputStrength': 'NONE'},
             ]
         },
         sensitiveInformationPolicyConfig={
