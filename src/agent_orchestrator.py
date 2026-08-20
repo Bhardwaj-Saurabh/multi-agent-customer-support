@@ -773,7 +773,11 @@ def build_orchestrator_agent(
         "1. ALWAYS call initialize_session first, for every request.\n"
         "2. For order status, order history, tracking, return, or refund requests: "
         "call route_to_inventory_agent FIRST to gather facts. For return/refund "
-        "requests, THEN call route_to_refund_agent for the eligibility decision.\n"
+        "requests you MUST call route_to_inventory_agent and wait for its result "
+        "BEFORE calling route_to_refund_agent - the refund agent cannot decide "
+        "without inventory findings. Never call route_to_refund_agent first, and "
+        "always call it after inventory for return/refund requests (even if the "
+        "order was not found - the refund agent makes the final decision).\n"
         "3. For questions about what policies SAY (return windows, shipping rates, "
         "delivery times, warranty terms): call route_to_policy_agent.\n"
         "4. For account questions ('what is my tier?', 'am I premium?', 'how many "
@@ -865,6 +869,13 @@ def build_orchestrator_agent(
         Returns:
             Refund decision from the RefundAgent
         """
+        state = _read_workflow_state(session_id)
+        if not state or not state.get('inventory_agent'):
+            return (
+                "ERROR: Inventory facts are not yet available for this session. "
+                "Call route_to_inventory_agent first to gather the order details, "
+                "then call route_to_refund_agent again."
+            )
         return _invoke_and_record(
             session_id, customer_id, 'refund_agent', 'REFUND AGENT',
             refund_agent,
