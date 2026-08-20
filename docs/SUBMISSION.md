@@ -48,9 +48,20 @@ Three scenarios captured (`orchestrator_test_scenario{1,2,3}.png`):
 2. **Policy question** (premium return policy) → Orchestrator → Policy (3 parallel KB retrievers) → Communication
 3. **Math question** → Orchestrator answers directly → Communication
 
-## 4. AWS console deployment screenshots
+## 4. AWS console deployment screenshots ✅
 
-Console screenshots (browser captures) accompany this submission showing:
+Console screenshots are included in `docs/screenshots/`:
+
+| Screenshot | Shows |
+|---|---|
+| `kb1.png`, `kb2.png`, `kb3.png` | Each Knowledge Base detail page: Available status, service role, and synced S3 data source |
+| `agentcoreruntime.png` | AgentCore Runtime `udacity_agentcore_runtime` (READY, PUBLIC network, MCP protocol) |
+| `memory.png` | AgentCore Memory (SESSION_SUMMARY strategy, 7-day expiry) |
+| `guardrail.png` | Guardrail `udacity-agentcore-guardrail` v2 with its policies |
+| `tracemap.png` | CloudWatch X-Ray Trace Map: fully connected OrchestratorAgent → workers graph |
+| `traces.png` | X-Ray trace list for the live runs |
+
+They capture:
 
 - **Bedrock → Knowledge Bases**: `novamart-returns-policy-kb`, `novamart-shipping-policy-kb`,
   `novamart-warranty-policy-kb` — each detail page shows the Titan Embed Text v2 embedding
