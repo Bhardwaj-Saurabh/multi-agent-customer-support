@@ -9,7 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-.env
+# .env is tracked (sanitized - no credentials) per reviewer request;
+# local credential edits are hidden via `git update-index --skip-worktree .env`
 .env.*
 !.env.example
 
